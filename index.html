@@ -284,6 +284,7 @@
         utterance.addEventListener('boundary', handleSpeechEvent);
         utterance.addEventListener('pause', handleSpeechEvent);
         utterance.addEventListener('resume', handleSpeechEvent);
+    window.scrollTo({ top: 0, behavior: "smooth" });
 
         speechSynthesis.speak(utterance);
       }
