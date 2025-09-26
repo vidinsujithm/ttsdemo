@@ -288,7 +288,7 @@
 
       const utterance = new SpeechSynthesisUtterance(texttospeak.value);
       utterance.voice = voices.find(v => v.voiceURI === document.getElementById('voice').value);
-      alert( utterance.voice)
+      alert( utterance.voice.name)
       utterance.volume = document.getElementById('volume').value;
       utterance.pitch = document.getElementById('pitch').value;
       var rate = document.getElementById('rate').value;
