@@ -256,25 +256,24 @@
     var firstBoundary;
 
     var voices = [];
-    function populateVoiceList() {
-      let current = document.getElementById('voice').value;
-      voices = speechSynthesis.getVoices();
+   function populateVoiceList() {
+        voices = window.speechSynthesis.getVoices();
+        var selectElm = document.querySelector('#voice');
+        selectElm.innerHTML = '';
+        voices.forEach((v,i) => {
+          var option = document.createElement('option');
+          option.textContent = `${v.name} (${v.lang})`;
+          option.value = v.voiceURI;
+          option.voice = v;
+          if (v.default) option.selected = true;
+          selectElm.appendChild(option);
+        });
+      }
 
-      var selectElm = document.querySelector('#voice');
-      selectElm.innerHTML = '';
-
-      voices.forEach((v) => {
-        var option = document.createElement('option');
-        option.textContent = `${v.name} (${v.lang})`;
-        option.value = v.voiceURI;
-        if (v.voiceURI === current) option.selected = true;
-        selectElm.appendChild(option);
-      });
-    }
-
-    
-    populateVoiceList();
-    speechSynthesis.onvoiceschanged = null;
+      populateVoiceList();
+      if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = populateVoiceList;
+      }
    
     function stop() { speechSynthesis.cancel(); }
     function playpause() {
